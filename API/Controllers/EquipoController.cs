@@ -1,4 +1,4 @@
-﻿using AB.Interfaces.Equipos;
+using AB.Interfaces.Equipos;
 using AB.Models.Equipos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +17,7 @@ namespace API.Controllers
 
         //GET: api/<EquipoController>
         [HttpGet]
-        [ProducesResponseType<EquipoDto>(StatusCodes.Status200OK)]
+        [ProducesResponseType<IReadOnlyList<EquipoDto>>(StatusCodes.Status200OK)]
         [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IReadOnlyList<EquipoDto>>> Listar(CancellationToken ct)
         {
@@ -27,8 +27,9 @@ namespace API.Controllers
 
         //GET: api/<EquipoController>/id
         [HttpGet("{id:int:min(1)}")]
-        [ProducesResponseType<IReadOnlyList<EquipoDto>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<EquipoDto>(StatusCodes.Status200OK)]
         [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EquipoDto>> ObtenerEquipoPorId(int id, CancellationToken ct)
         {
             var equipo = await _bl.ObtenerEquipoPorIdAsync(id, ct);
@@ -41,10 +42,20 @@ namespace API.Controllers
 
         // POST api/<AgenteController>
         [HttpPost]
+        [ProducesResponseType<EquipoDto>(StatusCodes.Status201Created)]
+        [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType<ProblemDetails>(StatusCodes.Status409Conflict)]
         public async Task<ActionResult<EquipoDto>> CrearEquipo([FromBody] EquipoCrearDto equipo, CancellationToken ct)
         {
-            var nuevoEquipo = await _bl.CrearEquipoAsync(equipo, ct);
-            return CreatedAtAction(nameof(ObtenerEquipoPorId), new { id = nuevoEquipo.Id }, nuevoEquipo);
+            try
+            {
+                var nuevoEquipo = await _bl.CrearEquipoAsync(equipo, ct);
+                return CreatedAtAction(nameof(ObtenerEquipoPorId), new { id = nuevoEquipo.Id }, nuevoEquipo);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new ProblemDetails { Detail = ex.Message, Status = StatusCodes.Status409Conflict });
+            }
         }
 
         // PUT api/<AgenteController>/id
@@ -55,8 +66,19 @@ namespace API.Controllers
         [ProducesResponseType<ProblemDetails>(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Actualizar(int id, [FromBody] EquipoActualizarDto equipo, CancellationToken ct)
         {
-             await _bl.ActualizarAsync(id, equipo, ct);
-            return NoContent();
+            try
+            {
+                await _bl.ActualizarAsync(id, equipo, ct);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new ProblemDetails { Detail = ex.Message, Status = StatusCodes.Status404NotFound });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new ProblemDetails { Detail = ex.Message, Status = StatusCodes.Status409Conflict });
+            }
         }
 
         // DELETE api/<AgenteController>/5
@@ -66,8 +88,19 @@ namespace API.Controllers
         [ProducesResponseType<ProblemDetails>(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Eliminar(int id, CancellationToken ct)
         {
-            await _bl.EliminarAsync(id, ct);
-            return NoContent();
+            try
+            {
+                await _bl.EliminarAsync(id, ct);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new ProblemDetails { Detail = ex.Message, Status = StatusCodes.Status404NotFound });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new ProblemDetails { Detail = ex.Message, Status = StatusCodes.Status409Conflict });
+            }
         }
 
     }

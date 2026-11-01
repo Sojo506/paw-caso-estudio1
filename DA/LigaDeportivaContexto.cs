@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,7 +16,23 @@ namespace DA
 
         public DbSet<Equipo> Equipos => Set<Equipo>();
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Equipo>(entity =>
+            {
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
+                entity.HasIndex(e => e.Nombre)
+                    .IsUnique();
+
+                entity.Property(e => e.Ciudad)
+                    .IsRequired()
+                    .HasMaxLength(100);
+            });
+        }
     }
 }
