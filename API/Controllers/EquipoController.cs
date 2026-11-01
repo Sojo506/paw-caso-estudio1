@@ -10,12 +10,14 @@ namespace API.Controllers
     {
         private readonly IEquipoBL _bl;
 
-        public EquipoController(IEquipoBL bl) => _bl = bl;
-
+        public EquipoController(IEquipoBL bl)
+        {
+            _bl = bl;
+        }
 
         //GET: api/<EquipoController>
         [HttpGet]
-        [ProducesResponseType<IReadOnlyList<EquipoDto>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<EquipoDto>(StatusCodes.Status200OK)]
         [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IReadOnlyList<EquipoDto>>> Listar(CancellationToken ct)
         {
@@ -67,11 +69,6 @@ namespace API.Controllers
             await _bl.EliminarAsync(id, ct);
             return NoContent();
         }
-
-
-
-
-
 
     }
 }

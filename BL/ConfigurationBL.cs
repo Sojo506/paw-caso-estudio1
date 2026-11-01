@@ -11,7 +11,6 @@ namespace BL
     {
         public static IServiceCollection addBl(this IServiceCollection servicios) 
         {
-            servicios.AddSingleton(TimeProvider.System);
             servicios.AddScoped<IEquipoBL, EquipoBL>();
             return servicios;
         }

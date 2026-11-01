@@ -15,7 +15,6 @@ namespace DA
             servicios.AddDbContext<LigaDeportivaContexto>(opciones =>
                 opciones.UseSqlServer(cadenaConexion));
 
-            servicios.AddScoped<LigaDeportivaContexto>();
             servicios.AddScoped<IEquipoDA, EquipoDA>();
             return servicios;
 
