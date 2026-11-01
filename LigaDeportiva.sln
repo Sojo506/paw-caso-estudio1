@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA", "DA\DA.csproj", "{74748F76-B426-43A0-82BF-042801208261}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{9860364F-B24D-44EF-A293-FB82473B0B77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AB", "AB\AB.csproj", "{ECBA550E-AAD0-4281-B828-B38A0D5D72E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{CC18E148-66B5-45E9-B439-99BF6036CBBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74748F76-B426-43A0-82BF-042801208261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74748F76-B426-43A0-82BF-042801208261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74748F76-B426-43A0-82BF-042801208261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74748F76-B426-43A0-82BF-042801208261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9860364F-B24D-44EF-A293-FB82473B0B77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9860364F-B24D-44EF-A293-FB82473B0B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9860364F-B24D-44EF-A293-FB82473B0B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9860364F-B24D-44EF-A293-FB82473B0B77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECBA550E-AAD0-4281-B828-B38A0D5D72E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECBA550E-AAD0-4281-B828-B38A0D5D72E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECBA550E-AAD0-4281-B828-B38A0D5D72E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECBA550E-AAD0-4281-B828-B38A0D5D72E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC18E148-66B5-45E9-B439-99BF6036CBBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC18E148-66B5-45E9-B439-99BF6036CBBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC18E148-66B5-45E9-B439-99BF6036CBBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC18E148-66B5-45E9-B439-99BF6036CBBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
