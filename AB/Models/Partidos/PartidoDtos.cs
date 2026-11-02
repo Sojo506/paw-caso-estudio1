@@ -26,15 +26,15 @@ namespace AB.Models.Partidos
         [Required]
         public DateTime Fecha { get; set; }
         [Required]
-        [StringLength(100, MinimumLength = 2)]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "La cancha debe tener entre 2 y 100 caracteres")]
         public string Cancha { get; set; } = string.Empty;
     }
 
     public class PartidoActualizarDto
     {
-        [Range(1, int.MaxValue)]
-        public int EquipoLocalId { get; set; }
-        [Range(1, int.MaxValue)]
+        [Range(1, int.MaxValue, ErrorMessage = "Debe especificar un equipo local válido")]
+        public int EquipoLocalId { get; set; } 
+        [Range(1, int.MaxValue, ErrorMessage = "Debe especificar un equipo visitante válido")]
         public int EquipoVisitanteId { get; set; }
         [Required]
         public DateTime Fecha { get; set; }
