@@ -1,4 +1,4 @@
-﻿using AB.Interfaces.Equipos;
+using AB.Interfaces.Equipos;
 using AB.Models.Equipos;
 using System;
 using System.Collections.Generic;
@@ -22,12 +22,13 @@ namespace BL.Equipos
                 Id = id,
                 Nombre = dto.Nombre,
                 Ciudad = dto.Ciudad,
+                FechaFundacion = dto.FechaFundacion,
                 Estado = dto.Estado,
             },ct);
 
             if(!actualizado)
             {
-                throw new InvalidOperationException("No se pudo actualizar el equipo.");
+                throw new KeyNotFoundException("No se encontró el equipo para actualizar.");
             }
         }
 
@@ -38,7 +39,7 @@ namespace BL.Equipos
                 Nombre = dto.Nombre,
                 Ciudad = dto.Ciudad,
                 Estado = dto.Estado,
-                FechaFundacion = DateTime.UtcNow,
+                FechaFundacion = dto.FechaFundacion == default ? DateTime.UtcNow : dto.FechaFundacion,
             };
                 await _da.CrearEquipoAsync(Equipo, ct);
             return EquipoMapeador.ADto(Equipo);
@@ -51,7 +52,7 @@ namespace BL.Equipos
 
             if(!eliminado)
             {
-                throw new InvalidOperationException("No se pudo eliminar el equipo.");
+                throw new KeyNotFoundException("No se encontró el equipo para eliminar.");
             }
         }
 

@@ -1,5 +1,7 @@
-﻿using AB.Interfaces.Equipos;
+using AB.Interfaces.Equipos;
+using AB.Interfaces.Jugadores;
 using DA.Equipos;
+using DA.Jugadores;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,6 +18,7 @@ namespace DA
                 opciones.UseSqlServer(cadenaConexion));
 
             servicios.AddScoped<IEquipoDA, EquipoDA>();
+            servicios.AddScoped<IJugadorDA, JugadorDA>();
             return servicios;
 
         }

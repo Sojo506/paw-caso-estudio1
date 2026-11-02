@@ -1,4 +1,4 @@
-﻿using AB.Interfaces.Equipos;
+using AB.Interfaces.Equipos;
 using AB.Models.Equipos;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +30,7 @@ namespace DA.Equipos
             {
                 EquipoExistente.Nombre = equipo.Nombre;
                 EquipoExistente.Ciudad = equipo.Ciudad;
+                EquipoExistente.FechaFundacion = equipo.FechaFundacion;
                 EquipoExistente.Estado = equipo.Estado;
                 await _contexto.SaveChangesAsync(ct);
                 return true;
