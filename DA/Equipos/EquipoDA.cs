@@ -1,5 +1,6 @@
 using AB.Interfaces.Equipos;
 using AB.Models.Equipos;
+using AB.Models.Partidos;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -137,9 +138,11 @@ namespace DA.Equipos
                 FirstOrDefaultAsync(a => a.Id == id, ct);
         }
 
-        public Task<bool> TienePartidosPendientesAsync(int equipoId, CancellationToken ct)
+        public async Task<bool> TienePartidosPendientesAsync(int equipoId, CancellationToken ct)
         {
-            throw new NotImplementedException();
+            return await _contexto.Partidos.AnyAsync(p =>
+                (p.EquipoLocalId == equipoId || p.EquipoVisitanteId == equipoId)
+                && p.Estado == EstadoPartido.Programado, ct);
         }
     }
 }

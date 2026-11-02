@@ -95,6 +95,46 @@ namespace DA.Migrations
                     b.ToTable("Jugadores");
                 });
 
+            modelBuilder.Entity("AB.Models.Partidos.Partido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Cancha")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("EquipoLocalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EquipoVisitanteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("GolesLocal")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("GolesVisitante")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EquipoLocalId");
+
+                    b.HasIndex("EquipoVisitanteId");
+
+                    b.ToTable("Partidos");
+                });
+
             modelBuilder.Entity("AB.Models.Jugadores.Jugador", b =>
                 {
                     b.HasOne("AB.Models.Equipos.Equipo", "Equipo")
@@ -104,6 +144,25 @@ namespace DA.Migrations
                         .IsRequired();
 
                     b.Navigation("Equipo");
+                });
+
+            modelBuilder.Entity("AB.Models.Partidos.Partido", b =>
+                {
+                    b.HasOne("AB.Models.Equipos.Equipo", "EquipoLocal")
+                        .WithMany()
+                        .HasForeignKey("EquipoLocalId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AB.Models.Equipos.Equipo", "EquipoVisitante")
+                        .WithMany()
+                        .HasForeignKey("EquipoVisitanteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("EquipoLocal");
+
+                    b.Navigation("EquipoVisitante");
                 });
 
             modelBuilder.Entity("AB.Models.Equipos.Equipo", b =>

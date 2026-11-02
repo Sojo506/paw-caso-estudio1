@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using AB.Models.Equipos;
 using AB.Models.Jugadores;
+using AB.Models.Partidos;
 
 namespace DA
 {
@@ -12,6 +13,8 @@ namespace DA
 
         public DbSet<Equipo> Equipos => Set<Equipo>();
         public DbSet<Jugador> Jugadores => Set<Jugador>();
+        public DbSet<Partido> Partidos => Set<Partido>();
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,6 +50,23 @@ namespace DA
                 entity.HasOne(j => j.Equipo)
                     .WithMany(e => e.Jugadores)
                     .HasForeignKey(j => j.EquipoId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Partido>(entity =>
+            {
+                entity.Property(p => p.Cancha)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.HasOne(p => p.EquipoLocal)         
+                    .WithMany()
+                    .HasForeignKey(p => p.EquipoLocalId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(p => p.EquipoVisitante)
+                    .WithMany()
+                    .HasForeignKey(p => p.EquipoVisitanteId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
         }

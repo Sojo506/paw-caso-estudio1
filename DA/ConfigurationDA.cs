@@ -1,7 +1,9 @@
 using AB.Interfaces.Equipos;
 using AB.Interfaces.Jugadores;
+using AB.Interfaces.Partidos;
 using DA.Equipos;
 using DA.Jugadores;
+using DA.Partidos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -19,6 +21,7 @@ namespace DA
 
             servicios.AddScoped<IEquipoDA, EquipoDA>();
             servicios.AddScoped<IJugadorDA, JugadorDA>();
+            servicios.AddScoped<IPartidoDA, PartidoDA>();
             return servicios;
 
         }
