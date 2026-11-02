@@ -1,4 +1,5 @@
-﻿using System;
+using AB.Models.Jugadores;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,7 +20,7 @@ namespace AB.Models.Equipos
         public EstadoEquipo Estado { get; set; }
 
         // 1 - N un equipo tiene muchos jugadores
-        // public List<Jugador> Jugadores { get; set; } = new();
+        public List<Jugador> Jugadores { get; set; } = new();
 
     }
 }

@@ -32,7 +32,8 @@ namespace DA.Migrations
 
                     b.Property<string>("Ciudad")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Estado")
                         .HasColumnType("int");
@@ -42,11 +43,72 @@ namespace DA.Migrations
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Nombre")
+                        .IsUnique();
+
                     b.ToTable("Equipos");
+                });
+
+            modelBuilder.Entity("AB.Models.Jugadores.Jugador", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("EquipoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaNacimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("NumeroCamiseta")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Posicion")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EquipoId", "NumeroCamiseta")
+                        .IsUnique();
+
+                    b.ToTable("Jugadores");
+                });
+
+            modelBuilder.Entity("AB.Models.Jugadores.Jugador", b =>
+                {
+                    b.HasOne("AB.Models.Equipos.Equipo", "Equipo")
+                        .WithMany("Jugadores")
+                        .HasForeignKey("EquipoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Equipo");
+                });
+
+            modelBuilder.Entity("AB.Models.Equipos.Equipo", b =>
+                {
+                    b.Navigation("Jugadores");
                 });
 #pragma warning restore 612, 618
         }

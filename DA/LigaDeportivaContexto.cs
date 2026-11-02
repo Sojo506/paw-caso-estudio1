@@ -1,10 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using AB.Models.Equipos;
+using AB.Models.Jugadores;
 
 namespace DA
 {
@@ -15,6 +11,7 @@ namespace DA
         }
 
         public DbSet<Equipo> Equipos => Set<Equipo>();
+        public DbSet<Jugador> Jugadores => Set<Jugador>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +29,25 @@ namespace DA
                 entity.Property(e => e.Ciudad)
                     .IsRequired()
                     .HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Jugador>(entity =>
+            {
+                entity.Property(j => j.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(j => j.Apellido)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.HasIndex(j => new { j.EquipoId, j.NumeroCamiseta })
+                    .IsUnique();
+
+                entity.HasOne(j => j.Equipo)
+                    .WithMany(e => e.Jugadores)
+                    .HasForeignKey(j => j.EquipoId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }
