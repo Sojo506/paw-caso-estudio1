@@ -16,6 +16,6 @@ namespace AB.Interfaces.Equipos
         Task<bool> ActualizarEquipoAsync(Equipo equipo, CancellationToken ct);
 
         Task<bool> EliminarEquipoAsync(int id, CancellationToken ct);
-
+        Task<bool> TienePartidosPendientesAsync(int equipoId, CancellationToken ct);
     }
 }

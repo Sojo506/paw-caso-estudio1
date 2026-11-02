@@ -136,5 +136,10 @@ namespace DA.Equipos
                 AsNoTracking().
                 FirstOrDefaultAsync(a => a.Id == id, ct);
         }
+
+        public Task<bool> TienePartidosPendientesAsync(int equipoId, CancellationToken ct)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
